@@ -16,20 +16,38 @@ def load_library(file_path)
     new_hash
 end
 
-def get_japanese_emoticon
+def get_japanese_emoticon(file_path, emoticon)
   # code goes here
- 
-    
   
+  final_hash = load_library(file_path)
+  japanese_key = final_hash.keys.find do |key|
+    
+    
+   final_hash[key][:english] == emoticon
+   
+  end
+  binding.pry
+  if japanese_key
+  return final_hash[japanese_key][:japanese]
+else
+  "Sorry, that emoticon was not found"
+end
 end
 
 def get_english_meaning(file_path, emoticon)
   # code goes here
-  
-   final_hash = YAML.load_file(file_path, emoticon) 
-    final_hash.each do |key, value|
-    if new_hash[key][:japanese]
-      puts new_hash[key][:english]
-    end
+   final_hash = load_library(file_path) 
+    emoticon = final_hash.keys.find do |key|
+      final_hash[key][:japanese] == emoticon
+      
+      
+       #binding.pry
+      
+ #binding.pry
+  end
+  if emoticon != nil 
+    emoticon 
+  else 
+    "Sorry, that emoticon was not found"
   end
 end
