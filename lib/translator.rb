@@ -19,6 +19,7 @@ def load_library(file_name)
         
       #  puts "this should print out new hash and sub category angel"
         new_hash.each_key {|key1|
+        #0.upto(13){|n|
               new_hash[key1].each_key {|key2| 
 
               #puts key2.to_s
@@ -29,6 +30,9 @@ def load_library(file_name)
                #end
                #binding.pry
               }
+              #new_array[n][0]
+              #new_array[n][1]
+        #}
         }
         
         
