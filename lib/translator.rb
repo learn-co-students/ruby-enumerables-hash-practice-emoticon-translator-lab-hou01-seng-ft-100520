@@ -1,55 +1,75 @@
 # require modules here
 require "yaml"
 require 'pry'
+
 new_hash = Hash.new
-
 def load_library(file_name)
-  new_hash = YAML.load_file(file_name)
-    new_array = Array.new
-  array3 = {:english =>{},
-          :japanese =>{}}
-          #binding.pry
-  puts "this second method worke?!\n\n"
-      new_hash.each do |key,value| 
-        puts "this is the key #{key} and this is the emoticon #{value} "
-        new_hash[key] = array3
-        new_array.push(value)  
-        #binding.pry
+  emoticons = YAML.load_file(file_name)
+  new_hash = {}
+      emoticons.each do |key,value| 
+        new_hash[key] = {}
+        new_hash[key][:english] = value[0]
+        #puts new_hash[key][:english]
+        new_hash[key][:japanese] = value[1]
+        #puts new_hash[key][:japanese]
       end
-        
-      #  puts "this should print out new hash and sub category angel"
-        new_hash.each_key {|key1|
-        #0.upto(13){|n|
-              new_hash[key1].each_key {|key2| 
-
-              #puts key2.to_s
-              # if key2 == "english"
-               #     new_hash[key1][key2] = new_array[n][0]
-               #else
-               #     new_hash[key1][key2] = new_array[n][1]
-               #end
-               #binding.pry
-              }
-              #new_array[n][0]
-              #new_array[n][1]
-        #}
-        }
-        
-        
-  puts "\n\n\n this is the array"
-  p new_array[0][0]
-  puts "\n\n\n and this is the new hash"
-  p new_hash
+      new_hash
 end
+
 load_library('./lib/emoticons.yml')
 
-def get_japanese_emoticon
-  
-  
-end
-get_japanese_emoticon
 
 
-def get_english_meaning
-  # code goes here
+
+def get_japanese_emoticon (file_name,emoticon)
+  puts "this is the 1st method"
+  sorry_message = "Sorry, that emoticon was not found"
+      hash = load_library(file_name)
+      my_hash = Hash.new
+      val2 = nil
+      hash.each do |key1,value1|
+       my_hash = value1
+       val = key1
+       
+           my_hash.each do |key2, value2|
+                val2 = value2
+                
+                if emoticon == val2
+                  return hash[val][:japanese]
+                end
+           end
+     end
+     puts "\n\n this is val2 #{val2} hahah\n\n"
+     if val2 != emoticon
+             return sorry_message
+          end
+      
 end
+get_japanese_emoticon('./lib/emoticons.yml',":'(")
+puts "\n\n\n"
+
+
+
+
+def get_english_meaning(file_name,emoticon)
+  puts "this is the 2nd method"
+  sorry_message = "Sorry, that emoticon was not found"
+  hash = load_library(file_name)
+  my_hash = Hash.new
+  val2 = nil
+  hash.each do |key1,value1|
+   my_hash = value1
+   val1 = key1
+   
+            my_hash.each do |key2, value2|
+                    val2 = value2
+                    if value2 == emoticon
+                      return key1
+                    end
+            end
+       end
+       if val2 != emoticon
+        return sorry_message
+ end
+end
+get_english_meaning('./lib/emoticons.yml',"(Ｔ▽Ｔ)")
